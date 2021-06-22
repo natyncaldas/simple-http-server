@@ -37,14 +37,21 @@ while True:
         client_connection.close()
 
     except IOError:
-        f = open("not_found.html", encoding="utf8")
+        f = open("error404.html", encoding="utf8")
         not_found = f.read()
         response = 'HTTP/1.1 404 Not Found\n\n' + not_found
         client_connection.send(response.encode())   
         # Close the client connection socket
         client_connection.close()
+    except UnicodeDecodeError:
+        f = open("error415.html", encoding="utf8")
+        media_error = f.read()
+        response = 'HTTP/1.1 415 Unsupported Media Type\n\n' + media_error
+        client_connection.send(response.encode()) 
+        # Close the client connection socket
+        client_connection.close()
     except:
-        f = open("error.html", encoding="utf8")
+        f = open("error500.html", encoding="utf8")
         server_error = f.read()
         response = 'HTTP/1.1 500 Internal Server Error\n\n' + server_error
         client_connection.send(response.encode()) 
