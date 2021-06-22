@@ -24,7 +24,7 @@ while True:
         request = client_connection.recv(1024).decode()
         
         filename = request.split()[1][1:] if request else ''
-        
+
         if filename == '' or filename == 'favicon.ico':
             f = open("index.html", encoding="utf8")
         else:
@@ -63,8 +63,6 @@ while True:
         print ('\033[1;33;40m['+datetime.now().strftime("%H:%M:%S") +'] \033[0;37;40m Keyboard Interrupt')
         print ('\033[1;33;40m['+datetime.now().strftime("%H:%M:%S") +'] \033[0;37;40m Stopping server...')
 
-        # Close the client connection socket
-        client_connection.close()
         break
     
     except:
